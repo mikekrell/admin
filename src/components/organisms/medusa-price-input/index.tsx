@@ -10,7 +10,7 @@ type MedusaPriceInputProps = {
 
 /**
  * A controlled input component that wraps around PriceInput and renders the amount
- * and the currency of the provided price coming from a medusa server.
+ * and the currency of the provided price coming from a medusa servers.
  */
 function MedusaPriceInput(props: MedusaPriceInputProps) {
   const [rawValue, setRawValue] = React.useState<string | undefined>(

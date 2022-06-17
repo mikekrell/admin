@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { FilteringOptionProps } from "../../molecules/table/filtering-option"
 import { SimpleProductType } from "./utils"
 
-// TODO: Redo this with server side sorting
+// TODO: Redo this with servers side sorting
 
 const useSortingOptions = (products: SimpleProductType[]) => {
   const [options, setOptions] = useState<FilteringOptionProps[]>([])

@@ -40,6 +40,7 @@ const EditProductPage = ({ id }) => {
       uploadedImgs = await Medusa.uploads
         .create(images)
         .then(({ data }) => {
+
           const uploaded = data.uploads.map(({ url }) => url)
           return uploaded
         })

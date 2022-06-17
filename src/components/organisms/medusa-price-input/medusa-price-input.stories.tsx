@@ -19,7 +19,7 @@ export default {
   argTypes: {
     amount: {
       description:
-        "Amount as received from the medusa server. Try both non-divisible and divisible currencies",
+        "Amount as received from the medusa servers. Try both non-divisible and divisible currencies",
     },
     currency: {
       description: "desc",

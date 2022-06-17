@@ -274,7 +274,7 @@ const Summary = ({ items, showCustomPrice, customOptionPrice, form }) => {
         </span>
         <span>
           {`${billing.postal_code} ${billing.city}
-                ${billing.country_code.toUpperCase()}`}
+                ${billing?.country_code}`}
         </span>
       </SummarySection>
     </div>

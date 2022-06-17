@@ -34,7 +34,7 @@ const defaultProduct = {
   hs_code: null,
   origin_country: null,
   material: "",
-  discountable: false,
+  discountable: false
 }
 
 const ProductFormContext = React.createContext<{

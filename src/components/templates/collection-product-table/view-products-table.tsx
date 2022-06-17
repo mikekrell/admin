@@ -55,7 +55,7 @@ const ViewProductsTable: React.FC<ViewProductsTableProps> = ({
 
   const columns = useViewProductColumns()
 
-  // const [sorted, sortingOptions] = useSortingOptions(products ?? []) TODO: Implement this with server side sorting
+  // const [sorted, sortingOptions] = useSortingOptions(products ?? []) TODO: Implement this with servers side sorting
 
   const {
     rows,

@@ -86,6 +86,7 @@ export const formValuesToCreateProductMapper = (values, viewType) => {
     options: values.options,
     tags: values?.tags ? values.tags.map((tag) => ({ value: tag })) : [],
     variants: values.variants,
+    stripeId: values.stripeId,
     width: values?.width ? parseInt(values.width, 10) : undefined,
     length: values?.length ? parseInt(values.length, 10) : undefined,
     weight: values?.weight ? parseInt(values.weight, 10) : undefined,
@@ -112,6 +113,7 @@ export const formValuesToUpdateProductMapper = (values) => {
       ? { id: values.type.value, value: values.type.label }
       : null,
     images: values?.images || [],
+    stripeId: values.stripeId,
     tags: values?.tags ? values.tags.map((tag) => ({ value: tag })) : [],
     width: values?.width ? parseInt(values.width, 10) : undefined,
     length: values?.length ? parseInt(values.length, 10) : undefined,
