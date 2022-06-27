@@ -44,10 +44,6 @@ const Textarea = React.forwardRef(
       }
     }
 
-    const handleAddEmoji = (e) => {
-      console.log(e)
-      console.log(inputRef.current?.selectionStart)
-    }
 
     return (
       <InputContainer

@@ -1,31 +1,35 @@
-import { useParams } from "@reach/router"
-import { navigate } from "gatsby"
+import { useParams } from "@reach/router";
+
+import { navigate } from "gatsby";
 import {
   useAdminCollections,
   useAdminDeleteProduct,
   useAdminProductTypes,
-  useAdminUpdateProduct,
-} from "medusa-react"
-import React from "react"
-import { Controller } from "react-hook-form"
-import Checkbox from "../../../../components/atoms/checkbox"
-import TrashIcon from "../../../../components/fundamentals/icons/trash-icon"
-import IconTooltip from "../../../../components/molecules/icon-tooltip"
-import Input from "../../../../components/molecules/input"
-import Select from "../../../../components/molecules/select"
-import StatusSelector from "../../../../components/molecules/status-selector"
-import TagInput from "../../../../components/molecules/tag-input"
-import Textarea from "../../../../components/molecules/textarea"
-import BodyCard from "../../../../components/organisms/body-card"
-import RadioGroup from "../../../../components/organisms/radio-group"
-import useImperativeDialog from "../../../../hooks/use-imperative-dialog"
-import useNotification from "../../../../hooks/use-notification"
-import { getErrorMessage } from "../../../../utils/error-messages"
+  useAdminUpdateProduct
+} from "medusa-react";
+import React from "react";
+import { Controller } from "react-hook-form";
+import Checkbox from "../../../../components/atoms/checkbox";
+import TrashIcon from "../../../../components/fundamentals/icons/trash-icon";
+import IconTooltip from "../../../../components/molecules/icon-tooltip";
+import Input from "../../../../components/molecules/input";
+import Select from "../../../../components/molecules/select";
+import StatusSelector from "../../../../components/molecules/status-selector";
+import TagInput from "../../../../components/molecules/tag-input";
+import Textarea from "../../../../components/molecules/textarea";
+import BodyCard from "../../../../components/organisms/body-card";
+import RadioGroup from "../../../../components/organisms/radio-group";
+import useImperativeDialog from "../../../../hooks/use-imperative-dialog";
+import useNotification from "../../../../hooks/use-notification";
+import { getErrorMessage } from "../../../../utils/error-messages";
+
+
 import {
   SINGLE_PRODUCT_VIEW,
   useProductForm,
-  VARIANTS_VIEW,
-} from "../form/product-form-context"
+  VARIANTS_VIEW
+} from "../form/product-form-context";
+
 
 const General = ({ showViewOptions = true, isEdit = false, product }) => {
   const {
@@ -34,29 +38,29 @@ const General = ({ showViewOptions = true, isEdit = false, product }) => {
     setViewType,
     viewType,
     setValue,
-  } = useProductForm()
-  const { product_types } = useAdminProductTypes(undefined, { cacheTime: 0 })
-  const { collections } = useAdminCollections()
+  } = useProductForm();
+  const { product_types } = useAdminProductTypes(undefined, { cacheTime: 0 });
+  const { collections } = useAdminCollections();
 
   const typeOptions =
-    product_types?.map((tag) => ({ label: tag.value, value: tag.id })) || []
+    product_types?.map((tag) => ({ label: tag.value, value: tag.id })) || [];
   const collectionOptions =
     collections?.map((collection) => ({
       label: collection.title,
-      value: collection.id,
-    })) || []
+      value: collection.id
+    })) || [];
 
   const setNewType = (value: string) => {
     const newType = {
       label: value,
-      value,
-    }
+      value
+    };
 
-    typeOptions.push(newType)
-    setValue("type", newType)
+    typeOptions.push(newType);
+    setValue("type", newType);
 
-    return newType
-  }
+    return newType;
+  };
 
   return (
     <GeneralBodyCard
@@ -84,7 +88,7 @@ const General = ({ showViewOptions = true, isEdit = false, product }) => {
             ref={register({
               required: "Name is required",
               minLength: 1,
-              pattern: /(.|\s)*\S(.|\s)*/,
+              pattern: /(.|\s)*\S(.|\s)*/
             })}
           />
           <Input
@@ -103,16 +107,16 @@ const General = ({ showViewOptions = true, isEdit = false, product }) => {
           Give your product a short and clear description. 120-160 characters is
           the recommended length for search engines.
         </label>
+        <Textarea
+          name="description"
+          id="description"
+          label="Description"
+          placeholder="Short description of the product..."
+          className="row-span-full"
+          rows={8}
+          ref={register}
+        />
         <div className="grid grid-rows-3 grid-cols-2 gap-x-8 gap-y-4 mb-large">
-          <Textarea
-            name="description"
-            id="description"
-            label="Description"
-            placeholder="Short description of the product..."
-            className="row-span-full"
-            rows={8}
-            ref={register}
-          />
           <Controller
             as={Select}
             control={control}
@@ -135,11 +139,11 @@ const General = ({ showViewOptions = true, isEdit = false, product }) => {
                   value={value}
                   isCreatable
                   onCreateOption={(value) => {
-                    return setNewType(value)
+                    return setNewType(value);
                   }}
                   clearSelected
                 />
-              )
+              );
             }}
           />
           <Controller
@@ -152,7 +156,7 @@ const General = ({ showViewOptions = true, isEdit = false, product }) => {
                   onChange={onChange}
                   values={value || []}
                 />
-              )
+              );
             }}
             control={control}
           />
@@ -183,64 +187,64 @@ const General = ({ showViewOptions = true, isEdit = false, product }) => {
         )}
       </div>
     </GeneralBodyCard>
-  )
-}
+  );
+};
 
 const GeneralBodyCard = ({ isEdit, product, ...props }) => {
-  const params = useParams()
-  const dialog = useImperativeDialog()
-  const notification = useNotification()
-  const updateProduct = useAdminUpdateProduct(params?.id)
-  const deleteProduct = useAdminDeleteProduct(params?.id)
+  const params = useParams();
+  const dialog = useImperativeDialog();
+  const notification = useNotification();
+  const updateProduct = useAdminUpdateProduct(params?.id);
+  const deleteProduct = useAdminDeleteProduct(params?.id);
 
   const onDelete = async () => {
     const shouldDelete = await dialog({
       heading: "Delete Product",
-      text: "Are you sure you want to delete this product",
-    })
+      text: "Are you sure you want to delete this product"
+    });
     if (shouldDelete) {
       deleteProduct.mutate(undefined, {
         onSuccess: () => {
-          notification("Success", "Product deleted successfully", "success")
-          navigate("/a/products/")
+          notification("Success", "Product deleted successfully", "success");
+          navigate("/a/products/");
         },
         onError: (err) => {
-          notification("Ooops", getErrorMessage(err), "error")
-        },
-      })
+          notification("Ooops", getErrorMessage(err), "error");
+        }
+      });
     }
-  }
+  };
 
   const onStatusChange = async () => {
-    const newStatus = product?.status === "published" ? "draft" : "published"
+    const newStatus = product?.status === "published" ? "draft" : "published";
     updateProduct.mutate(
       {
-        status: newStatus,
+        status: newStatus
       },
       {
         onSuccess: () => {
-          const pastTense = newStatus === "published" ? "published" : "drafted"
+          const pastTense = newStatus === "published" ? "published" : "drafted";
           notification(
             "Success",
             `Product ${pastTense} successfully`,
             "success"
-          )
+          );
         },
         onError: (err) => {
-          notification("Ooops", getErrorMessage(err), "error")
-        },
+          notification("Ooops", getErrorMessage(err), "error");
+        }
       }
-    )
-  }
+    );
+  };
 
   const actionables = [
     {
       label: "Delete Product",
       onClick: onDelete,
       variant: "danger" as const,
-      icon: <TrashIcon />,
-    },
-  ]
+      icon: <TrashIcon />
+    }
+  ];
 
   return (
     <BodyCard
@@ -258,7 +262,7 @@ const GeneralBodyCard = ({ isEdit, product, ...props }) => {
       }
       {...props}
     />
-  )
-}
+  );
+};
 
-export default General
+export default General;
