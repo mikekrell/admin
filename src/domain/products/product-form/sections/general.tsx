@@ -107,16 +107,17 @@ const General = ({ showViewOptions = true, isEdit = false, product }) => {
           Give your product a short and clear description. 120-160 characters is
           the recommended length for search engines.
         </label>
-        <Textarea
-          name="description"
-          id="description"
-          label="Description"
-          placeholder="Short description of the product..."
-          className="row-span-full"
-          rows={8}
-          ref={register}
-        />
+
         <div className="grid grid-rows-3 grid-cols-2 gap-x-8 gap-y-4 mb-large">
+          <Textarea
+            name="description"
+            id="description"
+            label="Description"
+            placeholder="Short description of the product..."
+            className="row-span-full"
+            rows={8}
+            ref={register}
+          />
           <Controller
             as={Select}
             control={control}
